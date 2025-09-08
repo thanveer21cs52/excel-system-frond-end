@@ -30,7 +30,7 @@ function Upload({refetch}:{refetch:any}) {
 
 
 
-      const res = await fetch("http://localhost:3001/upload", {
+      const res = await fetch("https://excel-system-backend.onrender.com/upload", {
         method: "POST",
         body: formData,
       });
