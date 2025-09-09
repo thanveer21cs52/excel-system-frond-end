@@ -20,11 +20,11 @@ const [page,setpage]=useState(0)
 const [currenttable,setcurrenttable]=useState<{tablename:null|string,
   tablelength:number,
   idname:null|string,
-  currentid:null|string|number
+ 
 }>({
   tablename:null,
   tablelength:0,
-    idname:null,currentid:null
+    idname:null
 })
   const [showPopup, setShowPopup] = useState(false);
   const [formData, setFormData] = useState<any>();
@@ -35,7 +35,7 @@ const [currenttable,setcurrenttable]=useState<{tablename:null|string,
       [name]: value
     });
   };
-  const [currentid,setcurruentid]=useState<any>(null)
+
   const handleSubmit = async (table:any,idname:any,id:any) => {
     setShowPopup(false);
     setloading(true)
@@ -149,9 +149,9 @@ const [currenttable,setcurrenttable]=useState<{tablename:null|string,
           <div className="bg-black/60 rounded-lg shadow-lg p-12 w-3/8">
             <h2 className="text-xl font-bold mb-4">Edit</h2>
             {Object.keys(formData).map((key,index) => {
-           
+              if(key!='uniqid'){
               return <div key={key} className="mb-3">
-                <div className={`flex ${index==0 &&'text-gray-400'}`}>
+                <div className={`flex ${index==1 &&'text-gray-400'}`}>
                   <label className="block text-sm font-medium mb-1 w-2/6">{key}</label>
                 <input
                   type="text"
@@ -159,17 +159,17 @@ const [currenttable,setcurrenttable]=useState<{tablename:null|string,
                   value={formData[key]}
                   onChange={handleChange}
                   className={"w-full border border-gray-300 rounded px-2 py-1"}
-                  disabled={index==0}
+                  disabled={index==1}
                 />
 
                 </div>
                 
-              </div>
+              </div>}
             })}
 
             <div className="flex justify-end mt-4">
               <button
-                onClick={(e:any)=>handleSubmit(currenttable.tablename,currenttable.idname,formData[Object.keys(formData)[0]])}
+                onClick={(e:any)=>handleSubmit(currenttable.tablename,currenttable.idname,formData['uniqid'])}
                 className="bg-violet-600 text-white px-4 py-2 rounded mr-2"
               >
                 Submit
@@ -195,14 +195,19 @@ const [currenttable,setcurrenttable]=useState<{tablename:null|string,
           <table className="min-w-full border border-violet-400 text-white/80 rounded-lg shadow-sm text-sm my-3 ">
             <thead className="">
               <tr>
-                {Object.keys(data[0]).map((col, index) => (
-                  <th
+                {Object.keys(data[0]).map((col, index) => {
+                  if(col!='uniqid'){
+                    return   <th
                     key={col + index}
                     className="border-b border-violet-400 bg-violet-700 px-4 py-2 text-left font-semibold capitalize"
                   >
                     {col}
                   </th>
-                ))}
+
+                  }
+                  
+                
+  })}
               </tr>
             </thead>
             <tbody>
@@ -212,12 +217,15 @@ const [currenttable,setcurrenttable]=useState<{tablename:null|string,
                   setShowPopup(true)}}>
                   {Object.keys(data[0]).map((col, index1) => {
                    
-                    
-                    return <td key={col + index1} className="border-b border-violet-400 px-4 py-3">
+                    if(col!='uniqid'){
+                      return <td key={col + index1} className="border-b border-violet-400 px-4 py-3">
                       {col.toLowerCase().includes("date")
                         ? new Date(row[col]).toLocaleDateString()
                         : row[col]}
                     </td>
+
+                    }
+                    
                   })}
                 </tr>
               ))}
