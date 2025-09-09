@@ -145,7 +145,7 @@ const [currenttable,setcurrenttable]=useState<{tablename:null|string,
   
   if(show){
     return loading?<LoadingGear/>:<div className=" p-4 w-8/9 text-white flex flex-col justify-between space-y-4 min-h-[80vh] relative ">
-      {showPopup&&<div className="fixed inset-0 bg-black/60 bg-opacity-50 flex items-center justify-center z-50">
+      {showPopup&&<div className="fixed inset-0 bg-black/60 bg-opacity-50 flex items-center justify-center z-50 overflow-y-auto">
           <div className="bg-black/60 rounded-lg shadow-lg p-12 w-3/8">
             <h2 className="text-xl font-bold mb-4">Edit</h2>
             {Object.keys(formData).map((key,index) => {
