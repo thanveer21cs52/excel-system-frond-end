@@ -145,8 +145,8 @@ const [currenttable,setcurrenttable]=useState<{tablename:null|string,
   
   if(show){
     return loading?<LoadingGear/>:<div className=" p-4 w-8/9 text-white flex flex-col justify-between space-y-4 min-h-[80vh] relative ">
-      {showPopup&&<div className="fixed inset-0 bg-black/60 bg-opacity-50 flex items-center justify-center z-50 overflow-y-auto">
-          <div className="bg-black/60 rounded-lg shadow-lg p-12 w-3/8">
+      {showPopup&&<div className="fixed inset-0 bg-black/60 bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-black/60 rounded-lg shadow-lg p-12 w-3/8 max-h-[70vh]  overflow-y-auto">
             <h2 className="text-xl font-bold mb-4">Edit</h2>
             {Object.keys(formData).map((key,index) => {
               if(key!='uniqid'){
@@ -199,7 +199,7 @@ const [currenttable,setcurrenttable]=useState<{tablename:null|string,
                   if(col!='uniqid'){
                     return   <th
                     key={col + index}
-                    className="border-b border-violet-400 bg-violet-700 px-4 py-2 text-left font-semibold capitalize"
+                    className="border-b border-violet-400 bg-violet-700 px-3 py-2 text-left font-semibold capitalize"
                   >
                     {col}
                   </th>
@@ -218,7 +218,7 @@ const [currenttable,setcurrenttable]=useState<{tablename:null|string,
                   {Object.keys(data[0]).map((col, index1) => {
                    
                     if(col!='uniqid'){
-                      return <td key={col + index1} className="border-b border-violet-400 px-4 py-3">
+                      return <td key={col + index1} className="border-b border-violet-400 px-3 py-2">
                       {col.toLowerCase().includes("date")
                         ? new Date(row[col]).toLocaleDateString()
                         : row[col]}
