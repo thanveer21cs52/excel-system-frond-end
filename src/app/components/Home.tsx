@@ -40,7 +40,7 @@ const [currenttable,setcurrenttable]=useState<{tablename:null|string,
     setShowPopup(false);
     setloading(true)
     console.log("Submitted Data:", formData,table,idname,id);
-    const req = await fetch(`http://localhost:3001/update/${table}/${idname}/${id}`,{
+    const req = await fetch(`https://excel-system-backend.onrender.com/update/${table}/${idname}/${id}`,{
        method: 'PUT', 
   headers: {
     'Content-Type': 'application/json' 
@@ -69,14 +69,14 @@ const [currenttable,setcurrenttable]=useState<{tablename:null|string,
   async function fetchtables() {
     setloading(true)
  
-    const req = await fetch("http://localhost:3001/gettables");
+    const req = await fetch("https://excel-system-backend.onrender.com/gettables");
     const data = await req.json();
     setloading(false)
     settable(data.table);
 
   }
   const handleFrontendExport = async (tablename:any) => {
-    const res = await fetch(`http://localhost:3001/tabledata/${tablename}`);
+    const res = await fetch(`https://excel-system-backend.onrender.com/tabledata/${tablename}`);
     const { data } = await res.json();
 
     const worksheet = XLSX.utils.json_to_sheet(data);
@@ -104,7 +104,7 @@ const [currenttable,setcurrenttable]=useState<{tablename:null|string,
     
     setshow(true)
        setloading(true)
-    const req = await fetch(`http://localhost:3001/tabledata/${tablename}/${pages}`);
+    const req = await fetch(`https://excel-system-backend.onrender.com/tabledata/${tablename}/${pages}`);
     const data = await req.json();
        setloading(false)
       setcurrenttable(prev => ({
@@ -120,7 +120,7 @@ const [currenttable,setcurrenttable]=useState<{tablename:null|string,
   async function tabledelete(tablename: string) {
     const confirm=window.confirm("are you want to delete this table "+tablename)
     if(confirm){
-       const req = await fetch(`http://localhost:3001/delete/${tablename}`,{
+       const req = await fetch(`https://excel-system-backend.onrender.com/delete/${tablename}`,{
       method:'delete'
     });
     const data = await req.json();
@@ -289,7 +289,7 @@ const [currenttable,setcurrenttable]=useState<{tablename:null|string,
                  <span>{tbl.table_name}</span> 
                  <div className="flex  space-x-5">
                    <button  onClick={() => tabledata(tbl.table_name,page)} className="text-violet-400 hover:text-white  ">view</button>
-                                    <a href={`http://localhost:3001/download/${tbl.table_name}`}  className="text-green-400 hover:text-white  " download={true}>export</a>
+                                    <a href={`https://excel-system-backend.onrender.com/download/${tbl.table_name}`}  className="text-green-400 hover:text-white  " download={true}>export</a>
                  <button  onClick={() => tabledelete(tbl.table_name)} className="text-red-400 hover:text-white  ">delete</button>
 
                  {/* <button  onClick={() => handleFrontendExport(tbl.table_name)} className="text-red-400 hover:text-white  ">export</button> */}
